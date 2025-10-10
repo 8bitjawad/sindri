@@ -34,3 +34,5 @@ def provider_dashboard(request):
 def home(request):
     return render(request,"users/home.html")
 
+def test(request):
+    return render(request,"users/test.html")

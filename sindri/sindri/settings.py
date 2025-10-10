@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import os
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # Application definition
 
@@ -37,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'users',
+    'tailwind',
+    'theme'
 ]
  
 MIDDLEWARE = [
@@ -55,7 +60,7 @@ ROOT_URLCONF = 'sindri.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,3 +131,5 @@ AUTH_USER_MODEL= 'users.CustomUser'
 # settings.py
 LOGIN_REDIRECT_URL = 'dashboard'   # where users go after login
 LOGOUT_REDIRECT_URL = 'home'       # where users go after logout
+
+TAILWIND_APP_NAME = 'theme'
