@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Services</title>
+</head>
+<body>
+    <h1>Available Services</h1>
+
+    <ul>
+        {% for service in services %}
+            <li>
+                <strong>{{ service.title }}</strong> - ₹{{ service.price }} <br>
+                Category: {{ service.category.name }} <br>
+                Provider: {{ service.provider.username }} <br>
+                Description: {{ service.description }}
+            </li>
+        {% empty %}
+            <li>No services available.</li>
+        {% endfor %}
+    </ul>
+
+    {% if user.is_authenticated and user.user_type == 'provider' %}
+        <a href="{% url 'create_service' %}">Add a New Service</a>
+    {% endif %}
+</body>
+</html>
