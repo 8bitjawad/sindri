@@ -1,6 +1,33 @@
-<h1>Customer Dashboard</h1>
-<p>Welcome, {{ user.username }}!</p>
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center bg-white px-4 py-8">
+  <div class="w-full max-w-md bg-gray-50 shadow-lg rounded-2xl p-8 text-center">
+
+    <!-- Heading -->
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-2">
+      Customer Dashboard
+    </h1>
+    <p class="text-gray-600 mb-6">
+      Welcome, <span class="text-blue-600 font-semibold">{{ user.username }}</span>!
+    </p>
+
+    <!-- Logout Button -->
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button
+        type="submit"
+        class="w-full py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition">
+        Logout
+      </button>
+    </form>
+
+    <!-- Quick Links -->
+    <div class="mt-6 space-y-2 text-left">
+      <a href="{% url 'services' %}" class="block text-blue-600 hover:underline">Browse Services</a>
+      <a href="{% url 'my_bookings' %}" class="block text-blue-600 hover:underline">My Bookings</a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

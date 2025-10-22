@@ -1,7 +1,33 @@
+{% extends 'base.html' %}
 
-<h1>Provider Dashboard</h1>
-<p>Welcome, {{ user.username }}!</p>
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
+{% block content %}
+<section class="min-h-screen flex items-center justify-center bg-white px-4">
+  <div class="w-full max-w-md bg-gray-50 shadow-lg rounded-2xl p-8 text-center">
+    
+    <!-- Heading -->
+    <h1 class="text-3xl font-extrabold mb-2">
+      Provider Dashboard
+    </h1>
+    <p class="text-gray-600 mb-6">
+      Welcome, <span class="text-blue-600 font-semibold">{{ user.username }}</span>!
+    </p>
+
+    <!-- Logout Button -->
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button
+        type="submit"
+        class="w-full py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition">
+        Logout
+      </button>
+    </form>
+
+    <!-- Optional quick links -->
+    <div class="mt-6 space-y-2 text-left">
+      <a href="#" class="block text-blue-600 hover:underline">View Services</a>
+      <a href="#" class="block text-blue-600 hover:underline">View Bookings</a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

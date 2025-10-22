@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'services',
+    'widget_tweaks',
+
 ]
  
 MIDDLEWARE = [

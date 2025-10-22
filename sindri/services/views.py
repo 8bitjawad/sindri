@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 def service_list(request):
     services = Service.objects.filter(is_active=True)
-    return render(request, 'services/services_list.html', {'services':services})
+    return render(request, 'services/service_list.html', {'services':services})
 
 @login_required
 def create_service(request):

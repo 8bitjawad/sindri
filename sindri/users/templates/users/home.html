@@ -1,2 +1,51 @@
-<h1>Welcome to Sindri!</h1>
-<p>You’re on the temporary home page.</p>
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="min-h-screen bg-white text-gray-900 flex flex-col items-center justify-center px-6">
+  <!-- Hero Section -->
+  <div class="max-w-3xl text-center">
+    <h1 class="text-5xl font-extrabold mb-4">
+      Welcome to <span class="text-blue-600">Sindri</span>
+    </h1>
+    <p class="text-lg text-gray-600 mb-8">
+      Your trusted platform to find and book verified local professionals — from electricians to carpenters, all in one place.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="{% url 'service_list' %}" class="px-6 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition">
+        Browse Services
+      </a>
+      <a href="#" class="px-6 py-3 border border-blue-600 text-blue-600 rounded-xl hover:bg-blue-50 transition">
+        Become a Provider
+      </a>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="grid md:grid-cols-3 gap-8 mt-16 max-w-5xl w-full">
+    <div class="p-6 rounded-2xl shadow hover:shadow-lg transition bg-gray-50">
+      <h3 class="text-xl font-semibold mb-2 text-blue-600">Trusted Professionals</h3>
+      <p class="text-gray-600">Every provider is verified for quality and reliability, so you can book with confidence.</p>
+    </div>
+
+    <div class="p-6 rounded-2xl shadow hover:shadow-lg transition bg-gray-50">
+      <h3 class="text-xl font-semibold mb-2 text-blue-600">Seamless Bookings</h3>
+      <p class="text-gray-600">Quickly schedule appointments, track progress, and make secure payments.</p>
+    </div>
+
+    <div class="p-6 rounded-2xl shadow hover:shadow-lg transition bg-gray-50">
+      <h3 class="text-xl font-semibold mb-2 text-blue-600">Real Reviews</h3>
+      <p class="text-gray-600">Read authentic feedback from other customers before choosing your provider.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="mt-20 bg-blue-600 text-white p-10 rounded-3xl shadow-lg max-w-4xl text-center">
+    <h2 class="text-3xl font-bold mb-3">Ready to Get Started?</h2>
+    <p class="text-lg mb-6 text-blue-100">Join Sindri today and connect with trusted local experts instantly.</p>
+    <a href="#" class="px-6 py-3 bg-white text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition">
+      Sign Up Now
+    </a>
+  </div>
+</section>
+{% endblock %}
