@@ -1,13 +1,11 @@
-**Sindri — Local Service Booking Platform**
+**Sindri - Local Service Booking Platform**
 
 Sindri is a Django-based “Uber for local services” — a platform that connects people with nearby carpenters, plumbers, electricians, and other skilled professionals in just a few clicks.
 
 **The Problem**
 
 If you live in the UAE, you’ve probably faced this:
-Getting in touch with a reliable carpenter or plumber isn’t as easy as it should be.
-
-Unless you live in a building that already provides maintenance — which often comes with higher rent and less flexibility — you’re left relying on random WhatsApp numbers, word-of-mouth recommendations, or expensive agencies.
+Getting in touch with a reliable carpenter or plumber isn’t as easy as it should be. Unless you live in a building that already provides maintenance, which often comes with higher rent and less flexibility, you’re left relying on random WhatsApp numbers, word-of-mouth recommendations, or expensive agencies.
 
 There’s no simple, trustworthy system for finding, booking, and reviewing local service providers — especially for small, one-time jobs.
 
