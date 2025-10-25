@@ -56,3 +56,53 @@ def book_service(request, service_id):
 @login_required
 def booking_success(request):
     return render(request, 'bookings/booking_success.html')
+
+@login_required
+def provider_bookings(request):
+    if request.user.user_type != 'provider':
+        return render(request, 'bookings/not_authorized.html')
+
+    bookings = Booking.objects.filter(service__provider=request.user).order_by('date','slot')
+    return render(request, 'bookings/provider_bookings.html', {'bookings':bookings})
+
+@login_required
+def approve_booking(request,booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    if booking.service.provider != request.user:
+        return render(request, 'bookings/not_authorized.html')
+
+    if Booking.objects.filter(service=booking.service, date=booking.date, slot=booking.slot, status='confirmed').exists():
+        messages.error(request, 'This slot is already booked. Please choose another one.')
+        return redirect('provider_bookings')
+    
+    booking.status = 'Confirmed'
+    booking.save()
+    
+    Booking.objects.filter(
+        service=booking.service,
+        date=booking.date,
+        slot=booking.slot
+    ).exclude(id=booking.id).update(status='Rejected')
+
+
+    return redirect('provider_bookings')
+
+@login_required
+def reject_booking(request,booking_id):
+    booking = get_object_or_404(Booking,id=booking_id)
+
+    if booking.service.provider != request.user:
+        return render(request, 'bookings/not_authorized.html')
+
+    booking.status = 'Rejected'
+    booking.save()
+    return redirect('provider_bookings')
+
+@login_required
+def provider_services(request):
+    if request.user.user_type != 'provider':
+        return render(request, 'bookings/not_authorized.html')
+
+    services = Service.objects.filter(provider=request.user)
+    return render(request, 'bookings/provider_services.html', {'services': services})
