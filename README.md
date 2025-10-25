@@ -62,30 +62,19 @@ This project embodies that same spirit: empowering local professionals and makin
 
 ## Installation (for Developers)
 
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/yourusername/sindri.git
-cd sindri
+```git clone https://github.com/yourusername/sindri.git
+cd sindri```
 Create and activate a virtual environment
 
-bash
-Copy code
-python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+```python -m venv venv
+source venv/bin/activate   # On Windows: venv\Scripts\activate```
 Install dependencies
 
-bash
-Copy code
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 Run migrations
 
-bash
-Copy code
-python manage.py migrate
+`python manage.py migrate`
 Start the development server
 
-bash
-Copy code
-python manage.py runserver
+`python manage.py runserver`
 Then open your browser and visit http://127.0.0.1:8000 to explore Sindri!
