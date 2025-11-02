@@ -47,12 +47,14 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'bookings',
     'dashboard',
+    'corsheaders',
 ]
  
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -137,3 +139,10 @@ LOGIN_REDIRECT_URL = 'dashboard'   # where users go after login
 LOGOUT_REDIRECT_URL = 'home'       # where users go after logout
 
 TAILWIND_APP_NAME = 'theme'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",   # React dev server port
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",   # If you use CRA
+    "http://127.0.0.1:3000",
+]

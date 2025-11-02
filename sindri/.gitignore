@@ -1,22 +1,61 @@
-# Python
-__pycache__/
-*.py[cod]
+# =========================
+# Python / Django
+# =========================
+*.pyc
 *.pyo
-*.pyd
-*.env
-*.env.*
-
-# Virtual environment
+__pycache__/
+*.sqlite3
+db.sqlite3
+*.log
+*.pot
+*.py[cod]
+*.coverage
+.coverage.*
+instance/
+.env
+.env.*
 venv/
 ENV/
 env/
+.env.local
 
-# Django
-*.sqlite3
-*.log
-/staticfiles/
+# Django static files (optional if using collectstatic)
+staticfiles/
 media/
 
-# IDEs
+# =========================
+# Node / React / Vite
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite build output
+dist/
+build/
+*.tsbuildinfo
+
+# Tailwind compiled CSS (if you store it in static)
+static/frontend/*.css
+static/frontend/*.js
+
+# =========================
+# IDE / Editor
+# =========================
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Optional: VS Code / JetBrains
+# =========================
+*.code-workspace
