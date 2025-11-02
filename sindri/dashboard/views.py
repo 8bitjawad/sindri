@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
 
+
 @login_required
 def provider_analytics(request):
 
@@ -61,7 +62,7 @@ def provider_analytics(request):
     })
 
     return render(request, 'dashboard/provider_analytics.html', context)
-    
+
 @login_required
 def provider_analytics_react(request):
     if request.user.user_type != 'provider':
@@ -70,17 +71,22 @@ def provider_analytics_react(request):
 
 @login_required
 def provider_analytics_api(request):
-
-    provider = request.user
-    if getattr(provider, 'user_type', 'None') != 'provider':
+    # Check if user is authenticated
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Not authenticated'}, status=401)
+    
+    # Check if user is a provider
+    if getattr(request.user, 'user_type', None) != 'provider':
         return JsonResponse({'error': 'User is not a provider'}, status=403)
     
+    provider = request.user
+    
     total_bookings = Booking.objects.filter(service__provider=provider).count()
-
     completed_bookings = Booking.objects.filter(service__provider=provider, status='Completed').count()
     
     total_revenue = Booking.objects.filter(
-    service__provider=provider, status='Completed').aggregate(revenue=Sum('service__price'))['revenue'] or 0
+        service__provider=provider, status='Completed'
+    ).aggregate(revenue=Sum('service__price'))['revenue'] or 0
 
     monthly_data = (
         Booking.objects.filter(service__provider=provider)
@@ -91,22 +97,15 @@ def provider_analytics_api(request):
     
     if not monthly_data.exists():
         months = ['No Data']
-        counts = [0]
+        month_counts = [0]
     else:
         months = [d['created_at__month'] for d in monthly_data]
-        counts = [d['count'] for d in monthly_data]
+        month_counts = [d['count'] for d in monthly_data]
 
-    context = {
-        'total_bookings': total_bookings,
-        'completed_bookings': completed_bookings,
-        'total_revenue': total_revenue,
-        'months': json.dumps(months),
-        'counts': json.dumps(counts),
-    }
     service_data = Booking.objects.filter(service__provider=provider) \
-    .values('service__title') \
-    .annotate(count=Count('id')) \
-    .order_by('-count')
+        .values('service__title') \
+        .annotate(count=Count('id')) \
+        .order_by('-count')
 
     if service_data.exists():
         service_names = [d['service__title'] for d in service_data]
@@ -114,15 +113,13 @@ def provider_analytics_api(request):
     else:
         service_names = ['No Bookings Yet']
         service_counts = [0]
-    
 
-    # Add to context
-    context.update({
-        'service_names': json.dumps(service_names),
-        'service_counts': json.dumps(service_counts),
+    return JsonResponse({
+        'total_bookings': total_bookings,
+        'completed_bookings': completed_bookings,
+        'total_revenue': total_revenue,
+        'months': months,
+        'month_counts': month_counts,
+        'service_names': service_names,
+        'service_counts': service_counts,
     })
-
-    return JsonResponse(context)
-
-
-

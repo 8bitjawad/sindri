@@ -51,10 +51,10 @@ INSTALLED_APPS = [
 ]
  
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Move it here, after SessionMiddleware
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -126,7 +126,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Your existing static files
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -143,6 +149,8 @@ TAILWIND_APP_NAME = 'theme'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",   # React dev server port
     "http://127.0.0.1:5173",
-    "http://localhost:3000",   # If you use CRA
-    "http://127.0.0.1:3000",
+    "http://localhost:8000",   # If you use CRA
+    "http://127.0.0.1:8000",
 ]
+
+CORS_ALLOW_CREDENTIALS = True

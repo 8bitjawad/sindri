@@ -4,6 +4,8 @@
 
 {% block content %}
 <div id="react-analytics-root"></div>
-<script type="module" src="http://localhost:5173/@vite/client"></script>
-<script type="module" src="http://localhost:5173/src/main.jsx"></script>
+{% endblock %}
+
+{% block extra_js %}
+<script type="module" src="/static/frontend/assets/main.js"></script>
 {% endblock %}
