@@ -6,6 +6,19 @@ from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
 
+@login_required
+def customer_bookings(request):
+    user = request.user
+    if user.user_type != 'customer':
+        return redirect('home')  # only customers can see this page
+
+    # Fetch bookings for this customer
+    bookings = Booking.objects.filter(user=user).order_by('-created_at')
+
+    context = {
+        'bookings': bookings
+    }
+    return render(request, 'dashboard/customer_bookings.html', context)
 
 @login_required
 def provider_analytics(request):

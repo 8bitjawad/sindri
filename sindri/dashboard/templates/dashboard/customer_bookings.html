@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-white py-8 px-4">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-blue-600 mb-2">📋 My Bookings</h1>
+      <p class="text-gray-600">View and track all your service bookings</p>
+    </div>
+
+    {% if bookings %}
+      <!-- Stats Summary -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-gray-100 rounded-lg shadow p-4 border border-gray-200">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Total Bookings</p>
+              <p class="text-2xl font-bold text-gray-800">{{ bookings|length }}</p>
+            </div>
+            <div class="text-3xl">📊</div>
+          </div>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg shadow p-4 border border-gray-200">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Pending</p>
+              <p class="text-2xl font-bold text-gray-800">
+                {% with pending=bookings|dictsort:"status"|length %}
+                  {{ bookings|length }}
+                {% endwith %}
+              </p>
+            </div>
+            <div class="text-3xl">⏳</div>
+          </div>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg shadow p-4 border border-gray-200">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-600 text-sm">Latest Booking</p>
+              <p class="text-sm font-semibold text-gray-800">{{ bookings.0.created_at|date:"M d, Y" }}</p>
+            </div>
+            <div class="text-3xl">🕐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bookings Table Card -->
+      <div class="bg-gray-100 rounded-lg shadow border border-gray-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full">
+            <thead>
+              <tr class="bg-white border-b-2 border-gray-200">
+                <th class="px-6 py-4 text-left text-sm font-bold text-blue-600">Service</th>
+                <th class="px-6 py-4 text-left text-sm font-bold text-blue-600">Provider</th>
+                <th class="px-6 py-4 text-left text-sm font-bold text-blue-600">Status</th>
+                <th class="px-6 py-4 text-left text-sm font-bold text-blue-600">Date</th>
+                <th class="px-6 py-4 text-left text-sm font-bold text-blue-600">Price</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {% for booking in bookings %}
+              <tr class="hover:bg-gray-50 transition-colors duration-150">
+                <td class="px-6 py-4">
+                  <div class="flex items-center">
+                    <div class="text-2xl mr-3">🔧</div>
+                    <div>
+                      <p class="font-semibold text-gray-800">{{ booking.service.title }}</p>
+                      <p class="text-xs text-gray-500">{{ booking.service.category }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="flex items-center">
+                    <div class="bg-blue-100 rounded-full w-8 h-8 flex items-center justify-center mr-2">
+                      <span class="text-blue-600 font-semibold text-sm">
+                        {{ booking.service.provider.username|slice:":1"|upper }}
+                      </span>
+                    </div>
+                    <span class="text-gray-700">{{ booking.service.provider.username }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  {% if booking.status == "Completed" %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                      ✓ Completed
+                    </span>
+                  {% elif booking.status == "Pending" %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
+                      ⏳ Pending
+                    </span>
+                  {% elif booking.status == "Confirmed" %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                      ✓ Confirmed
+                    </span>
+                  {% elif booking.status == "Cancelled" %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+                      ✗ Cancelled
+                    </span>
+                  {% else %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
+                      {{ booking.status }}
+                    </span>
+                  {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                  <div>
+                    <p class="text-gray-800 font-medium">{{ booking.created_at|date:"M d, Y" }}</p>
+                    <p class="text-xs text-gray-500">{{ booking.created_at|date:"H:i" }}</p>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <p class="text-gray-800 font-semibold">₹{{ booking.service.price }}</p>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer Note -->
+      <div class="mt-6 text-center">
+        <p class="text-gray-500 text-sm">
+          Showing {{ bookings|length }} booking{{ bookings|length|pluralize }}
+        </p>
+      </div>
+
+    {% else %}
+      <!-- Empty State -->
+      <div class="bg-gray-100 rounded-lg shadow border border-gray-200 p-12 text-center">
+        <div class="text-6xl mb-4">📭</div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">No bookings yet</h2>
+        <p class="text-gray-600 mb-6">Start exploring services and make your first booking!</p>
+        <a href="{% url 'service_list' %}" class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+          Browse Services
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
