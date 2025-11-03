@@ -15,12 +15,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -34,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 
-NPM_BIN_PATH = os.environ.get('NPM_BIN_PATH', 'npm')
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 # Application definition
 
 INSTALLED_APPS = [
