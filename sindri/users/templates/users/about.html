@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}About | Sindri{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4">
+  <h1 class="text-3xl md:text-4xl font-bold mb-6">About Sindri</h1>
+
+  <p class="text-lg text-gray-800 mb-4">
+    Sindri is a local service booking platform that connects people with nearby carpenters, plumbers, electricians,
+    and other skilled professionals in just a few clicks.
+  </p>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-3">The Problem</h2>
+    <p class="text-gray-700 mb-2">
+      If you live in the UAE, you&apos;ve probably faced this:
+    </p>
+    <p class="text-gray-700">
+      Getting in touch with a reliable carpenter or plumber isn&apos;t as easy as it should be. Unless you live in a
+      building that already provides maintenance (often at higher rent and with less flexibility), you&apos;re left relying
+      on random WhatsApp numbers, word-of-mouth recommendations, or expensive agencies. There&apos;s no simple, trustworthy
+      system for finding, booking, and reviewing local service providers — especially for small, one-time jobs.
+    </p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-3">The Solution</h2>
+    <p class="text-gray-700 mb-2">
+      Sindri aims to make this process simple and transparent:
+    </p>
+    <ul class="list-disc list-inside space-y-1 text-gray-700">
+      <li>Customers can browse local services, book a provider, track booking status, and leave reviews — all from one dashboard.</li>
+      <li>Service Providers can list their services, manage bookings, and view performance analytics.</li>
+      <li>A Django-powered backend ensures smooth authentication, booking management, and secure data handling.</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-3">Core Features</h2>
+    <ul class="list-disc list-inside space-y-1 text-gray-700">
+      <li>Role-based authentication (Customers and Providers)</li>
+      <li>Service listing and management</li>
+      <li>Booking system with status workflow (Pending → Confirmed → In Progress → Completed)</li>
+      <li>Review and rating system</li>
+      <li>Separate dashboards for customers and providers</li>
+      <li>Responsive UI built with Tailwind CSS</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-3">Tech Stack</h2>
+    <ul class="list-disc list-inside space-y-1 text-gray-700">
+      <li>Backend: Django 5.x</li>
+      <li>Frontend: Django Templates, Tailwind CSS, JavaScript</li>
+      <li>Database: PostgreSQL</li>
+      <li>Deployment: Railway / Render</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-3">Future Enhancements</h2>
+    <ul class="list-disc list-inside space-y-1 text-gray-700">
+      <li>Email and in-app notifications</li>
+      <li>Location-based service filtering</li>
+      <li>Provider availability calendar</li>
+      <li>Provider analytics dashboard</li>
+      <li>AI-powered service recommendations</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-3">Why &quot;Sindri&quot;?</h2>
+    <p class="text-gray-700">
+      In Norse mythology, Sindri is the dwarf who forged powerful artifacts for the gods — symbolizing craftsmanship,
+      reliability, and skill. This project embodies that same spirit: empowering local professionals and making their
+      expertise more accessible.
+    </p>
+  </section>
+</div>
+{% endblock %}
