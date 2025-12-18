@@ -172,5 +172,4 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
-from django.contrib.auth import get_user_model
 
